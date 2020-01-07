@@ -1,0 +1,4 @@
+.vagrant
+join-command
+*.log
+admin.conf
