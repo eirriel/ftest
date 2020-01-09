@@ -100,7 +100,7 @@
 # Master specific tasks
 
   - name: Initialize the Kubernetes cluster using kubeadm
-    shell: kubeadm init --apiserver-advertise-address="192.168.20.10" --apiserver-cert-extra-sans="192.168.20.10"  --node-name k8s-master --pod-network-cidr="{{ pod_cidr }}" > /opt/kubeadm
+    shell: kubeadm init --apiserver-advertise-address="{{node_ip}}" --apiserver-cert-extra-sans="{{node_ip}}"  --node-name k8s-master --pod-network-cidr="{{ pod_cidr }}" > /opt/kubeadm
     args:
       creates: '/opt/kubeadm'
 
@@ -114,8 +114,8 @@
     copy:
       remote_src: yes
       src: /etc/kubernetes/admin.conf
-      dest: /home/vagrant/.kube/config
-      owner: vagrant
+      dest: "/home/{{ansible_user}}/.kube/config"
+      owner: "{{ansible_user}}"
       group: docker
 
   - name: Get Calico pod network
@@ -142,11 +142,11 @@
     register: join_command
 
   - name: Copy join command to local file
-    become: no
+    become: false
     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
 
   - name: Copy admin.conf used by post script
-    become: no
+    become: false
     fetch:
       src: "$HOME/.kube/config"
       dest: "./admin.conf"
