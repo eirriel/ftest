@@ -13,3 +13,7 @@ Run `pip install -r requirements.txt` to install the dependencies for the test s
 
 `vagrant up`
 
+## Start the AWS environment
+
+AWS Credentials should be set in environment variables,
+preview the changes with `terraform plan`, then run `terraform apply`

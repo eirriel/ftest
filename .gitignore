@@ -1,4 +1,5 @@
 .vagrant
+.terraform
 join-command
 *.log
 admin.conf

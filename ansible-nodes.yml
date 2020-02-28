@@ -95,7 +95,7 @@
       state: restarted
 
   - pause:
-      seconds: 5
+      seconds: 10
 # Nodes specific tasks
 
   - name: Copy the join command to server location
